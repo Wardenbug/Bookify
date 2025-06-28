@@ -2,5 +2,6 @@
 
 namespace Bookify.Application.Apartments;
 
-public record SeachApartmentsQuery(DateOnly StartDate, DateOnly EndDate)
+public record SearchApartmentsQuery(DateOnly StartDate, DateOnly EndDate)
     : IQuery<IReadOnlyList<ApartmentResponse>>;
+    
