@@ -1,0 +1,21 @@
+@BookifyApiHostAddress = https://localhost:5001
+
+### Get booking by ID
+GET {{BookifyApiHostAddress}}/api/bookings/00000000-0000-0000-0000-000000000123
+Accept: application/json
+
+### Create a new booking
+POST {{BookifyApiHostAddress}}/api/bookings
+Content-Type: application/json
+Accept: application/json
+
+{
+  "apartmentId": "00000000-0000-0000-0000-000000000001",
+  "userId": "00000000-0000-0000-0000-000000000002",
+  "startDate": "2025-07-01",
+  "endDate": "2025-07-05"
+}
+
+### Get available apartments
+GET {{BookifyApiHostAddress}}/api/apartments?startDate=2025-07-01&endDate=2025-07-05
+Accept: application/json

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>a9825180-b332-44cc-be33-daa8765fec68</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.6.3" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bookify.Application\Bookify.Application.csproj" />
+    <ProjectReference Include="..\Bookify.Infrastructure\Bookify.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

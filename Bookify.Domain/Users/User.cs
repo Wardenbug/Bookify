@@ -14,6 +14,7 @@ public sealed class User : Entity
         LastName = lastName;
         Email = email;
     }
+    private User() { }
 
     public FirstName FirstName { get; private set; }
     public LastName LastName { get; private set; }
@@ -24,7 +25,7 @@ public sealed class User : Entity
                               Email email)
     {
         var user = new User(Guid.NewGuid(), firstName, lastName, email);
-        
+
         user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id));
 
         return user;

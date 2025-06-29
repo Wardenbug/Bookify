@@ -57,7 +57,7 @@ internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBook
 
         try
         {
-            var booking = Booking.Reserve(
+            var booking = Booking.Reserve(  
             apartment,
             user.Id,
             duration,
