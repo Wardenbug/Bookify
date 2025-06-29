@@ -21,7 +21,7 @@ public class Result
     }
 
     public bool IsSuccess { get; }
-    public bool IsFailute => !IsSuccess;
+    public bool IsFailure => !IsSuccess;
 
     public Error Error { get; }
 
