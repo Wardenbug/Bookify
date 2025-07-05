@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Asp.Versioning.Builder;
 using Bookify.Application.Bookings.GetBooking;
 using Bookify.Application.Bookings.ReserveBooking;
 using MediatR;
@@ -7,32 +8,32 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bookify.Api.Controllers.Bookings;
 
-[Authorize]
-[ApiVersion(ApiVersions.V1)]
-[ApiController]
-[Route("api/bookings")]
-public class BookingsController : ControllerBase
+public static class BookingEndpoints
 {
-    private readonly ISender _sender;
-
-    public BookingsController(ISender sender)
+    public static IEndpointRouteBuilder MapBookingEndpoints(this IEndpointRouteBuilder builder)
     {
-        _sender = sender;
+        builder.MapGet("bookings/{id}", GetBooking)
+            .RequireAuthorization()
+            .WithName(nameof(GetBooking));
+
+        builder.MapPost("bookings", ReserveBooking)
+            .RequireAuthorization();
+
+        return builder;
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetBooking(Guid id, CancellationToken cancellationToken)
+    public static async Task<IResult> GetBooking(Guid id, ISender sender, CancellationToken cancellationToken)
     {
         var query = new GetBookingQuery(id);
 
-        var result = await _sender.Send(query, cancellationToken);
+        var result = await sender.Send(query, cancellationToken);
 
-        return result.IsSuccess ? Ok(result.Value) : NotFound();
+        return result.IsSuccess ? Results.Ok(result.Value) : Results.NotFound();
     }
 
-    [HttpPost]
-    public async Task<IActionResult> ReserveBooking(
+    public static async Task<IResult> ReserveBooking(
         ReserveBookingRequest request,
+        ISender sender,
         CancellationToken cancellationToken)
     {
         var command = new ReserveBookingCommand(
@@ -42,13 +43,13 @@ public class BookingsController : ControllerBase
             request.EndDate
             );
 
-        var result = await _sender.Send(command, cancellationToken);
+        var result = await sender.Send(command, cancellationToken);
 
         if (result.IsFailure)
         {
-            return BadRequest(result.Error);
+            return Results.BadRequest(result.Error);
         }
 
-        return CreatedAtAction(nameof(GetBooking), new { id = result.Value }, result.Value);
+        return Results.CreatedAtRoute(nameof(GetBooking), new { id = result.Value }, result.Value);
     }
 }

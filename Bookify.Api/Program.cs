@@ -7,6 +7,9 @@ using Bookify.Application.Abstractions.Data;
 using Dapper;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
+using Bookify.Api.Controllers.Bookings;
+using Asp.Versioning.Builder;
+using Asp.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +44,16 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+ApiVersionSet apiVersionSet = app.NewApiVersionSet()
+           .HasApiVersion(new ApiVersion(1))
+           .ReportApiVersions()
+           .Build();
+
+var routeGroupBuilder = app.MapGroup("api/v{version:apiVersion}").
+    WithApiVersionSet(apiVersionSet);
+
+routeGroupBuilder.MapBookingEndpoints();
 
 app.MapHealthChecks("health", new HealthCheckOptions
 {
