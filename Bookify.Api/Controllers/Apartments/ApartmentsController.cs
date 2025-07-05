@@ -1,4 +1,5 @@
-﻿using Bookify.Application.Apartments;
+﻿using Asp.Versioning;
+using Bookify.Application.Apartments;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
