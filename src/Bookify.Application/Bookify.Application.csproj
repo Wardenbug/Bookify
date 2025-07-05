@@ -21,5 +21,4 @@
 	<ItemGroup>
 		<InternalsVisibleTo Include="Bookify.Application.UnitTests" />
 	</ItemGroup>
-
 </Project>

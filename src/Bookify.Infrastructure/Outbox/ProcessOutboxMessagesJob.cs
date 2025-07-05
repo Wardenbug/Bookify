@@ -83,7 +83,7 @@ internal sealed class ProcessOutboxMessagesJob : IJob
             SELECT id, content
             FROM outbox_messages
             WHERE processed_on_utc IS NULL
-            ORDER BY occurred_on_utc
+            ORDER BY occured_on_utc
             LIMIT {_outboxOptions.BatchSize}
             FOR UPDATE
             """
