@@ -1,4 +1,5 @@
-﻿using Bookify.Application.Abstractions.Data;
+﻿using Bookify.Api.FunctionalTests.Users;
+using Bookify.Application.Abstractions.Data;
 using Bookify.Infrastructure;
 using Bookify.Infrastructure.Authentication;
 using Bookify.Infrastructure.Data;
@@ -9,20 +10,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Net.Http.Json;
 using Testcontainers.Keycloak;
 using Testcontainers.PostgreSql;
 using Testcontainers.Redis;
 
-namespace Bookify.Application.IntegrationTests.Infrastructure;
+namespace Bookify.Api.FunctionalTests.Infrastructure;
 
-public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
+public class FunctionalTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
+
     private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
-        .WithImage("postgres:latest")
-        .WithDatabase("bookify")
-        .WithUsername("postgres")
-        .WithPassword("postgres")
-        .Build();
+      .WithImage("postgres:latest")
+      .WithDatabase("bookify")
+      .WithUsername("postgres")
+      .WithPassword("postgres")
+      .Build();
 
     private readonly RedisContainer _redisContainer = new RedisBuilder()
         .WithImage("redis:latest")
@@ -40,6 +43,8 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         await _dbContainer.StartAsync();
         await _redisContainer.StartAsync();
         await _keycloakContainer.StartAsync();
+
+        await InitializeTestUserAsync();
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -52,7 +57,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
                 options
                     .UseNpgsql(_dbContainer.GetConnectionString())
                     .UseSnakeCaseNamingConvention());
-
+             
             services.RemoveAll(typeof(ISqlConnectionFactory));
 
             services.AddSingleton<ISqlConnectionFactory>(
@@ -67,6 +72,11 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
                 o.AdminUrl = $"{keycloakAddress}admin/realms/bookify/";
                 o.TokenUrl = $"{keycloakAddress}realms/bookify/protocol/openid-connect/token";
             });
+            services.Configure<AuthenticationOptions>(o =>
+            {
+                o.Issuer = $"{keycloakAddress}realms/bookify/";
+                o.MetadataUrl = $"{keycloakAddress}realms/bookify/.well-known/openid-configuration";
+            });
         });
     }
 
@@ -75,5 +85,12 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         await _dbContainer.StopAsync();
         await _redisContainer.StopAsync();
         await _keycloakContainer.StopAsync();
+    }
+
+    private async Task InitializeTestUserAsync()
+    {
+        var httpClient = CreateClient();
+
+        await httpClient.PostAsJsonAsync("api/v1/users/register", UserData.RegisterTestUserRequest);
     }
 }

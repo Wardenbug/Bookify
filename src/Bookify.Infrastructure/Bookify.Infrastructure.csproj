@@ -30,4 +30,8 @@
 	<ItemGroup>
 		<InternalsVisibleTo Include="Bookify.Application.IntegrationTests" />
 	</ItemGroup>
+
+<ItemGroup>
+		<InternalsVisibleTo Include="Bookify.Api.FunctionalTests" />
+	</ItemGroup>
 </Project>
