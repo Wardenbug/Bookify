@@ -7,19 +7,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{770AC7DF-68D7-4A5D-942B-074AC1B22143}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Domain", "Bookify.Domain\Bookify.Domain.csproj", "{70335ADD-DB49-4E27-86E9-2AC587B91B25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Domain", "src/Bookify.Domain\Bookify.Domain.csproj", "{70335ADD-DB49-4E27-86E9-2AC587B91B25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Application", "Bookify.Application\Bookify.Application.csproj", "{449036B6-7E74-4D3B-AB70-769403913BEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Application", "src/Bookify.Application\Bookify.Application.csproj", "{449036B6-7E74-4D3B-AB70-769403913BEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Infrastructure", "Bookify.Infrastructure\Bookify.Infrastructure.csproj", "{B1DD6F43-F37C-4428-BE3E-BFBF151040CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Infrastructure", "src/Bookify.Infrastructure\Bookify.Infrastructure.csproj", "{B1DD6F43-F37C-4428-BE3E-BFBF151040CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Api", "Bookify.Api\Bookify.Api.csproj", "{5F518168-CD25-45F9-8E97-E3320CF6DD3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Api", "src/Bookify.Api\Bookify.Api.csproj", "{5F518168-CD25-45F9-8E97-E3320CF6DD3A}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Domain.UnitTests", "..\Bookify.Domain.UnitTests\Bookify.Domain.UnitTests.csproj", "{097A82DA-CE7E-4325-A0FB-24D763FE0BD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Domain.UnitTests", "tests/Bookify.Domain.UnitTests\Bookify.Domain.UnitTests.csproj", "{097A82DA-CE7E-4325-A0FB-24D763FE0BD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Application.UnitTests", "..\Bookify.Application.UnitTests\Bookify.Application.UnitTests.csproj", "{E98A4D15-34C8-4691-BCCB-EFB62B78EAAE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Application.UnitTests", "tests/Bookify.Application.UnitTests\Bookify.Application.UnitTests.csproj", "{E98A4D15-34C8-4691-BCCB-EFB62B78EAAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Application.IntegrationTests", "tests/Bookify.Application.IntegrationTests\Bookify.Application.IntegrationTests.csproj", "{ECB8B44E-7473-4412-91CB-025DDACA9807}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{E98A4D15-34C8-4691-BCCB-EFB62B78EAAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E98A4D15-34C8-4691-BCCB-EFB62B78EAAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E98A4D15-34C8-4691-BCCB-EFB62B78EAAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECB8B44E-7473-4412-91CB-025DDACA9807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB8B44E-7473-4412-91CB-025DDACA9807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB8B44E-7473-4412-91CB-025DDACA9807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB8B44E-7473-4412-91CB-025DDACA9807}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{5F518168-CD25-45F9-8E97-E3320CF6DD3A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{097A82DA-CE7E-4325-A0FB-24D763FE0BD8} = {770AC7DF-68D7-4A5D-942B-074AC1B22143}
 		{E98A4D15-34C8-4691-BCCB-EFB62B78EAAE} = {770AC7DF-68D7-4A5D-942B-074AC1B22143}
+		{ECB8B44E-7473-4412-91CB-025DDACA9807} = {770AC7DF-68D7-4A5D-942B-074AC1B22143}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D228AB3A-10FC-4E05-883A-F2451D698D26}
